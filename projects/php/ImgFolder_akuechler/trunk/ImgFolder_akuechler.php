@@ -1,7 +1,7 @@
 <?php
 /**
  * @package      Joomla
- * @copyright    Copyright (C) 2011-2014 Ariel Küchler. All rights reserved.
+ * @copyright    Copyright (C) 2011-2014 Ariel Kï¿½chler. All rights reserved.
  * @license      MIT License (http://opensource.org/licenses/mit-license copyright information see above) OR GPL-3.0 (http://opensource.org/licenses/gpl-3.0)
  */
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
@@ -37,11 +37,50 @@ class plgContentImgFolder_akuechler extends JPlugin {
         return true;
     }
     
-    function _getReplacment(&$url, &$match) {
-    	// TODO auslesen + loop
-    	$base = JURI::base( true );
-    	$url = $base . $url . "x.jpg";
-    	return str_replace("{0}", $url, $match);
+     function _getReplacment(&$url, &$match) {
+        $base = "";
+        // if not absolute path: set base path, base path ends with "/"
+        if ( ! $this->_startsWith($url, '/')) {
+            $base = JURI::base( true );
+            $base .= '/';
+        }
+        // url ends with "/"
+        if ( ! $this->_endsWith($url, '/')) {
+            $url .= '/';
+        }
+        // loop tru folder and collect file names
+        $folder = getcwd() . $base . $url;
+        $names = array();
+        if (is_dir($folder)) {
+            foreach (new DirectoryIterator($folder) as $file) {
+                if($file->isDot() || !$file->isFile() || $file->getFilename() === 'index.html') continue;
+                $names[] = $file->getFilename();
+            }
+        }
+        // sort natural order
+        natcasesort($names);
+        // iterate file names and concat $match, replace placeholder in $match
+        $result = "";
+        foreach ($names as $name) {
+                $result .= str_replace("[0]", $url . $name, $match);
+        }
+        return $result;
+    }
+
+    // http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+    function _startsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
+    }
+
+    // http://stackoverflow.com/questions/834303/startswith-and-endswith-functions-in-php
+    function _endsWith($haystack, $needle) {
+        $length = strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+        return (substr($haystack, -$length) === $needle);
     }
 }
 ?>
