@@ -16,7 +16,7 @@ I.e. add:
 Result:
 
 ```html
-<p data-folder-loop='images/bilder/Glockenerneuerung/abnahme'>
+<p data-folder-loop='images/stories/topic-1'>
   <img src="images/stories/topic-1/image1.jpg" height="150" alt="" />
   <img src="images/stories/topic-1/image2.jpg" height="150" alt="" />
   <img src="images/stories/topic-1/image3.jpg" height="150" alt="" />
