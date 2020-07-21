@@ -10,18 +10,16 @@ Add the image folder as attribute data-folder-loop and the content of this eleme
 I.e. add:
 
 ```html
-<p data-folder-loop='images/stories/topic-1'><img src="[0]" height="150" alt="" /></p>
+{ImgFolder 'images/stories/topic-1'}<img src="[0]" height="150" alt="" />{/ImgFolder}
 ```
 
 Result:
 
 ```html
-<p data-folder-loop='images/stories/topic-1'>
-  <img src="images/stories/topic-1/image1.jpg" height="150" alt="" />
-  <img src="images/stories/topic-1/image2.jpg" height="150" alt="" />
-  <img src="images/stories/topic-1/image3.jpg" height="150" alt="" />
-  <img src="images/stories/topic-1/image4.jpg" height="150" alt="" />
-</p>
+<img src="images/stories/topic-1/image1.jpg" height="150" alt="" />
+<img src="images/stories/topic-1/image2.jpg" height="150" alt="" />
+<img src="images/stories/topic-1/image3.jpg" height="150" alt="" />
+<img src="images/stories/topic-1/image4.jpg" height="150" alt="" />
 ```
 
 Open Issue
@@ -32,6 +30,6 @@ At the moment you can add one folder per page only. The reason is you need an un
 For example with a dummy class:
 
 ```html
-<p data-folder-loop='images/stories/topic-1'><img class="_1" src="[0]" height="150" alt="" /></p>
-<p data-folder-loop='images/stories/topic-2'><img class="_2" src="[0]" height="150" alt="" /></p>
+{ImgFolder 'images/stories/topic-1'}<img class="_1" src="[0]" height="150" alt="" />{/ImgFolder}
+{ImgFolder 'images/stories/topic-2'}<img class="_2" src="[0]" height="150" alt="" />{/ImgFolder}
 ```

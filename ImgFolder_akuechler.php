@@ -9,35 +9,29 @@ jimport ( 'joomla.plugin.plugin' );
 
 class plgContentImgFolder_akuechler extends JPlugin {
 
-    function plgContentImgFolder_akuechler(&$subject, $config) {
-        parent::__construct ( $subject, $config );
-    }
-
     function onContentPrepare($context, &$row, &$params, $limitstart = 0) {
         // fast fail
-        $app = & JFactory::getApplication ();
-        if ($app->isAdmin () || (JString::strpos ( $row->text, 'data-folder-loop' ) === false)) {
+        $app = JFactory::getApplication ();
+        if ($app->isAdmin () || (JString::strpos ( $row->text, '{ImgFolder' ) === false)) {
             return true;
         }
         
         $matches = null;
-        // |<([^\s>]+)[^>]*\bdata-folder-loop=(["']?)([^"'\s]+)\2[^>]*>(.*?)</\1>|i
-        $regex = '|<([^\\s>]+)[^>]*\\bdata-folder-loop=(["\']?)([^"\'\\s]+)\\2[^>]*>(.*?)</\\1>|i';
+        $regex = '|{ImgFolder\\s+([\'"])([^\\1]+?)\\1\\s*}(.+?){/ImgFolder}|is';
         preg_match_all ( $regex, $row->text, $matches, PREG_SET_ORDER);
         $count = count ( $matches );
         
         // plugin only processes if there are any instances of the plugin in the text
         if ($count) {
-        	// test string: 
-        	// <span>test</span><div><pp id="ignore" class="x folder-loop y" data-folder-loop='images/test/' id="2"><img src="{0}" width="100" height="100" alt="" class="" /></pp></div><span>hallo</span>
-            for($i = 0; $i < $count; $i ++) {
-                $row->text = str_replace ( $matches [$i] [4], $this->_getReplacment ( $matches [$i] [3], $matches [$i] [4] ), $row->text );
+        	for($i = 0; $i < $count; $i ++) {
+                $row->text = str_replace ( $matches [$i] [0], $this->_getReplacment ( $matches [$i] [2], $matches [$i] [3] ), $row->text );
             }
         }
         return true;
     }
     
      function _getReplacment(&$url, &$match) {
+        $match = html_entity_decode($match);
         $base = "";
         // if not absolute path: set base path, base path ends with "/"
         if ( ! $this->_startsWith($url, '/')) {

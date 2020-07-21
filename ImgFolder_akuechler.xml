@@ -6,13 +6,18 @@
   <authorUrl>https://github.com/admiralsmaster</authorUrl>
   <copyright>Ariel Küchler</copyright>
   <license>MIT License or GPL-3.0</license>
-  <version>@version@</version>
+  <version>2.0.0</version>
   <description>
         <![CDATA[
         <h1>Img Folder Plugin</h1>
         <p>by Ariel K&uuml;chler</p>
         <h2>Versions</h2>
         <ol>
+        <li>2.0.0 
+            <ul>
+            	<li>Change to version with { ... }</li>
+            </ul>
+        </li>
         <li>1.0.0 
             <ul>
             	<li>initial version</li>
