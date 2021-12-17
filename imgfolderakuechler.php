@@ -1,33 +1,33 @@
 <?php
 /**
  * @package      Joomla
- * @copyright    Copyright (C) 2011-2014 Ariel K�chler. All rights reserved.
+ * @copyright    Copyright (C) 2011-2014 Ariel Küchler. All rights reserved.
  * @license      MIT License (http://opensource.org/licenses/mit-license copyright information see above) OR GPL-3.0 (http://opensource.org/licenses/gpl-3.0)
  */
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
-jimport ( 'joomla.plugin.plugin' );
 
-class plgContentImgFolder_akuechler extends JPlugin {
+use Joomla\CMS\Plugin\CMSPlugin;
+use Joomla\CMS\Language\Text;
 
-    function onContentPrepare($context, &$row, &$params, $limitstart = 0) {
-        // fast fail
-        $app = JFactory::getApplication ();
-        if ($app->isAdmin () || (JString::strpos ( $row->text, '{ImgFolder' ) === false)) {
-            return true;
+class PlgContentImgfolderakuechler extends CMSPlugin {
+
+    public function onContentPrepare($context, &$article, &$params, $page = 0) {
+     	// fast fail
+        if (stripos($article->text,'{ImgFolder') === false) {
+            return;
         }
         
         $matches = null;
         $regex = '|{ImgFolder\\s+([\'"])([^\\1]+?)\\1\\s*}(.+?){/ImgFolder}|is';
-        preg_match_all ( $regex, $row->text, $matches, PREG_SET_ORDER);
+        preg_match_all ( $regex, $article->text, $matches, PREG_SET_ORDER);
         $count = count ( $matches );
         
         // plugin only processes if there are any instances of the plugin in the text
         if ($count) {
         	for($i = 0; $i < $count; $i ++) {
-                $row->text = str_replace ( $matches [$i] [0], $this->_getReplacment ( $matches [$i] [2], $matches [$i] [3] ), $row->text );
+                $article->text = str_replace ( $matches [$i] [0], $this->_getReplacment ( $matches [$i] [2], $matches [$i] [3] ), $article->text );
             }
         }
-        return true;
     }
     
      function _getReplacment(&$url, &$match) {

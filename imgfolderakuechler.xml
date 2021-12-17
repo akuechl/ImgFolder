@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5" type="plugin" group="content" method="upgrade">
+<extension version="4.0" type="plugin" group="content" method="upgrade">
   <name>ImgFolder Plugin</name>
-  <creationDate>May 26, 2015</creationDate>
+  <creationDate>December 18, 2021</creationDate>
   <author>Ariel Küchler</author>
   <authorUrl>https://github.com/admiralsmaster</authorUrl>
   <copyright>Ariel Küchler</copyright>
   <license>MIT License or GPL-3.0</license>
-  <version>2.0.0</version>
+  <version>3.0.0</version>
   <description>
         <![CDATA[
-        <h1>Img Folder Plugin</h1>
+        <h1>Image Folder Plugin</h1>
         <p>by Ariel K&uuml;chler</p>
         <h2>Versions</h2>
         <ol>
+        <li>3.0.0 
+            <ul>
+            	<li>Changes for Joomla 4; rename plugin</li>
+            </ul>
+        </li>
         <li>2.0.0 
             <ul>
             	<li>Change to version with { ... }</li>
@@ -27,7 +32,7 @@
         ]]> 
   </description>
   <files>
-    <filename plugin="ImgFolder_akuechler">ImgFolder_akuechler.php</filename>
+    <filename plugin="imgfolderakuechler">imgfolderakuechler.php</filename>
     <filename>index.html</filename>
   </files>
   <config>

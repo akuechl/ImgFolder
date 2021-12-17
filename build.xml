@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="" default="all" basedir=".">
 
-	<property name="version" value="2.0.0" />
+	<property name="version" value="3.0.0" />
 	<property name="dist-folder" value="dist" />
 	<property name="build-folder" value="${dist-folder}/build" />
-	<property name="pluginname" value="ImgFolder_akuechler" />
+	<property name="pluginname" value="imgfolderakuechler" />
 	
 	<target name="clean">
 		<delete dir="${dist-folder}" />
